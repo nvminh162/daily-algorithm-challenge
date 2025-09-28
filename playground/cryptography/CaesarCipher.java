@@ -2,7 +2,7 @@ package playground.cryptography;
 
 // https://www.topcoder.com/thrive/articles/caesar-cipher-in-java-encryption-and-decryption
 public class CaesarCipher {
-    public static final String alpha = "abcdefghijklmnopqrstuvwxyz";
+    /* public static final String alpha = "abcdefghijklmnopqrstuvwxyz";
 
     public static String encrypt(String message, int shiftKey) {
         message = message.toLowerCase();
@@ -29,23 +29,34 @@ public class CaesarCipher {
             message += replaceVal;
         }
         return message;
+    } */
+
+    private static String encryptMessage(String msg, int k) {
+        String result = "";
+        for (int i = 0; i < msg.length(); i++)
+            result += encryptChar(msg.charAt(i), k);
+        return result;
+    }
+
+    private static char encryptChar(char c, int k) {
+        if (Character.isLetter(c))
+            return (char) ('A' + (c - 'A' + k) % 26); // 'A'=65
+        else
+            return c;
     }
 
     public static void main(String[] args) {
-        String plainText = "sofarsogood";
-        String encode = "xtkfwxtltti";
-        int s = 5;
+        String plainText = "ACTIONS";
+        String encode = "DFWLRQV";
+        int s = 3;
 
         System.out.println("----------------");
-
         System.out.println("encrypt: ");
         System.out.println("Text  : " + plainText);
-        System.out.println("Cipher: " + encrypt(plainText, s));
-
+        System.out.println("Cipher: " + encryptMessage(plainText, s));
         System.out.println("----------------");
-
         System.out.println("decrypt: ");
         System.out.println("Text : " + encode);
-        System.out.println("Cipher: " + decrypt(encode, s));
+        System.out.println("Cipher: " + encryptMessage(encode, 26 - s));
     }
 }
